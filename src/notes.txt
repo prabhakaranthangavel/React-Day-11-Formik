@@ -1,0 +1,356 @@
+Content
+
+1.Formik
+
+2.Wordle Game
+
+*************************************************************************************************************************
+
+1.Formik
+
+what is Formik ?
+
+===>Small group of react components and hooks for building forms in react.
+    React ல் ஒரு form ஐ create செய்ய அல்லது build செய்ய நமக்கு உதவும் ஒரு சிறிய library தான் Formik ஆகும்.
+
+===>Formik ஐ எதற்காக பயன்படுத்துகிறோம் ?
+
+    values ஐ form ஸ்டேட்டில் இருந்து உள்வாங்க அல்லது வெளியேற்ற
+    Form ஐ எளிதாக validate செய்ய மற்றும் Error Messsage ஐ display செய்ய
+    Form ஐ submit செய்ய 
+
+===>Formik ஐ install செய்ய தேவையான command line
+    npm install formik 
+
+    install ஆனதை dependencies ல் காணலாம்.
+
+    dependencies": 
+    {
+    "formik": "^2.4.5",
+    }
+
+===>Example:
+
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import React from "react";
+import './styles/App.css'
+
+function ContactForm() {
+  return (
+
+    <Formik       initialValues = { {name: '', email: '', message: ''} } 
+    validate = { (values) => {
+      const errors = {};
+
+      if(!values.name) {
+        errors.name = "Name is required";
+      }
+
+      if(!values.email) {
+        errors.email = "Email is required";
+      }
+
+      else if(!/"^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"/i.test(values.email)) {
+        errors.email = "Invalid Email Address";
+      }
+
+      return errors;
+
+    } }
+
+    onSubmit={ (values) => {
+      console.log(values);
+    } }      >
+
+      <Form>
+
+        <div>
+          <label htmlFor="name">Name</label>
+          <Field type='text' name='name'/>
+          <ErrorMessage name='name' component='div' className="error"/>
+        </div>
+
+        <div>
+          <label htmlFor="email">Email</label>
+          <Field type='email' name='email'/>
+          <ErrorMessage name='email' component='div' className="error" />
+        </div>
+
+        <div>
+          <label htmlFor="message">Message</label>
+          <Field as='textarea' name='message'/>
+          <ErrorMessage name='message' component='div' className="error" />
+        </div>
+
+        <button type="submit">Submit</button>
+
+      </Form>
+      
+    </Formik>
+
+  );
+}
+
+function App() {
+  return (
+    <div>
+      <ContactForm />
+    </div>
+  );
+}
+
+export default App;
+
+
+
+output:
+Screen ல் Name Email Message Button போன்றவை வந்துவிடும்.
+மேலும் நாம் ஏதேனும் input கொடுத்து Submit கொடுத்தால் console ல் நாம் கொடுத்த தகவல்கள் display ஆகும்.
+
+கவனிக்க வேண்டியவை:
+initialValues கொடுக்க வேண்டும்.
+Form ஐ validate செய்ய வேண்டும்.
+ErrorMessage கொடுக்க வேண்டும்.
+Email 
+
+*************************************************************************************************************************
+
+2.Wordle Game
+
+App.jsx:
+import React from 'react'
+import Header from './components/Header'
+import LetterGrid from './components/LetterGrid'
+import Keyboard from './components/Keyboard'
+
+function App() {
+  return (
+    
+    <div>
+      <Header />
+      <LetterGrid />
+      <Keyboard />
+    </div>
+  )
+}
+
+export default App
+
+
+App.css
+.error {
+    color: red;
+}
+
+label{
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type='text'], input[type='email'] {
+    width: 30%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+button {
+    background: brown;
+    padding: 8px 40px;
+    padding-top: 10px;
+    display: block;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 250px;
+    color: whitesmoke;
+    font-style: oblique;
+}
+
+
+LetterGrid.jsx
+import React, { useState } from "react";
+import "../styles/LetterGrid.css";
+
+function LetterGrid() {
+  
+  const [squares, setSquares] = useState(Array(30).fill(''));
+
+  return (
+
+    <div className="letterGrid">
+
+      <div className="row">
+        <button className="square"> { squares[0] } </button>
+        <button className="square"> { squares[1] } </button>
+        <button className="square"> { squares[2] } </button>
+        <button className="square"> { squares[3] } </button>
+        <button className="square"> { squares[4] } </button>
+      </div>
+
+      <div className="row">
+        <button className="square"> { squares[5] } </button>
+        <button className="square"> { squares[6] } </button>
+        <button className="square"> { squares[7] } </button>
+        <button className="square"> { squares[8] } </button>
+        <button className="square"> { squares[9] } </button>
+      </div>
+
+      <div className="row">
+        <button className="square"> { squares[10] } </button>
+        <button className="square"> { squares[11] } </button>
+        <button className="square"> { squares[12] } </button>
+        <button className="square"> { squares[13] } </button>
+        <button className="square"> { squares[14] } </button>
+      </div>
+
+      <div className="row">
+        <button className="square"> { squares[15] } </button>
+        <button className="square"> { squares[16] } </button>
+        <button className="square"> { squares[17] } </button>
+        <button className="square"> { squares[18] } </button>
+        <button className="square"> { squares[19] } </button>
+      </div>
+
+      <div className="row">
+        <button className="square"> { squares[20] } </button>
+        <button className="square"> { squares[21] } </button>
+        <button className="square"> { squares[22] } </button>
+        <button className="square"> { squares[23] } </button>
+        <button className="square"> { squares[24] } </button>
+      </div>
+
+      <div className="row">
+        <button className="square"> { squares[25] } </button>
+        <button className="square"> { squares[26] } </button>
+        <button className="square"> { squares[27] } </button>
+        <button className="square"> { squares[28] } </button>
+        <button className="square"> { squares[29] } </button>
+      </div>
+
+    </div> 
+  );
+}
+
+export default LetterGrid;
+
+
+LetterGrid.css
+.letterGrid {
+    text-align: center;
+    padding-top: 50px;
+}
+
+.square {
+    width: 60px;
+    height: 60px;
+    background: white;
+    border: 2px solid blue;
+   
+    margin: 5px;
+    text-align: center;
+    display: inline-block;
+}
+
+.row ::after {
+    clear: both;
+    display: table;
+    content: '';
+}
+
+
+Keyboard.jsx
+import React, {useState} from 'react'
+import '../styles/Keyboard.css'
+import '../styles/LetterGrid.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
+
+function Keyboard() {
+
+    const [squares, setSquares] = useState(Array(28).fill(''));
+
+  return (
+
+    <div className="keyboardGrid">
+
+      <div className="row">
+        <button className="rectangle"> { <b>Q</b> } </button>
+        <button className="rectangle"> { <b>W</b> } </button>
+        <button className="rectangle"> { <b>E</b> } </button>
+        <button className="rectangle"> { <b>R</b> } </button>
+        <button className="rectangle"> { <b>T</b> } </button>
+        <button className="rectangle"> { <b>Y</b> } </button>
+        <button className="rectangle"> { <b>U</b> } </button>
+        <button className="rectangle"> { <b>I</b> } </button>
+        <button className="rectangle"> { <b>O</b> } </button>
+        <button className="rectangle"> { <b>P</b> } </button>
+      </div>
+      
+
+      <div className="row">
+        <button className="rectangle"> { <b>A</b> } </button>
+        <button className="rectangle"> { <b>S</b> } </button>  
+        <button className="rectangle"> { <b>D</b> } </button>
+        <button className="rectangle"> { <b>F</b> } </button>
+        <button className="rectangle"> { <b>G</b> } </button>
+        <button className="rectangle"> { <b>H</b> } </button>
+        <button className="rectangle"> { <b>J</b> } </button>
+        <button className="rectangle"> { <b>K</b> } </button>
+        <button className="rectangle"> { <b>L</b> } </button>
+      </div>
+
+      <div className="row">
+        <button className="square"> { <b>ENTER</b>  } </button>
+        <button className="rectangle"> { <b>Z</b> } </button>
+        <button className="rectangle"> { <b>X</b> } </button>
+        <button className="rectangle"> { <b>Q</b> } </button>
+        <button className="rectangle"> { <b>Q</b> } </button>
+        <button className="rectangle"> { <b>Q</b> } </button>
+        <button className="rectangle"> { <b>Q</b> } </button>
+        <button className="rectangle"> { <b>Q</b> } </button>
+        <button className="square"> <FontAwesomeIcon icon={faDeleteLeft} size='2xl' /></button>
+      </div>
+
+    </div> 
+  );
+ 
+}
+
+export default Keyboard
+
+
+Keyboard.css
+.keyboardGrid {
+    text-align: center;
+    padding-top: 50px;
+}
+
+.rectangle {
+    width: 60px;
+    height: 60px;
+    background: black;
+    border: none;
+    
+    margin: 5px;
+    text-align: center;
+    display: inline-block;
+    color: whitesmoke;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+.row ::after {
+    clear: both;
+    display: table;
+    content: '';
+}
+
+.keyboardGrid .square {
+    background: black;
+    color: whitesmoke;
+    border: none;
+    border-radius: 5px;
+    
+}
+
+*************************************************************************************************************************
